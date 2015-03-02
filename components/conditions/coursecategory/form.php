@@ -20,7 +20,7 @@
   * @package blocks
   * @author: Juan leyva <http://www.twitter.com/jleyvadelgado>
   * @date: 2009
-  */  
+  */
 
 if (!defined('MOODLE_INTERNAL')) {
     die('Direct access to this script is forbidden.');    ///  It must be included from a Moodle page
@@ -31,16 +31,17 @@ require_once($CFG->libdir.'/formslib.php');
 class coursecategory_form extends moodleform {
     function definition() {
         global $DB, $USER, $CFG;
+        require_once($CFG->dirroot.'/course/lib.php');
 
         $mform =& $this->_form;
 
-        $mform->addElement('header', '', get_string('coursefield','block_configurable_reports'), '');
+        $mform->addElement('header',  'crformheader' ,get_string('coursefield','block_configurable_reports'), '');
 
 		$options = array(get_string('top'));
         $parents = array();
-		make_categories_list($options, $parents);
+		cr_make_categories_list($options, $parents);
 		$mform->addElement('select', 'categoryid', get_string('category'), $options);
-				
+
         // buttons
         $this->add_action_buttons(true, get_string('add'));
 
@@ -48,4 +49,3 @@ class coursecategory_form extends moodleform {
 
 }
 
-?>

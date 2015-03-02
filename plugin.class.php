@@ -22,34 +22,35 @@
   * @date: 2009
   */
 
-class plugin_base{
+class plugin_base {
 
-	
-	var $fullname = '';
-	var $type = '';
-	var $report = null;
-	var $form = false;
-	var $cache = array();
-	var $unique = false;
-	var $reporttypes = array();
-	
-	function plugin_base($report){
-		global $DB, $CFG;
-		
-		if(is_numeric($report))
-			$this->report = $DB->get_record('block_configurable_reports_report',array('id' => $report));
-		else
-			$this->report = $report;
-		$this->init();
-	}
-	
-	function __construct($report){
-		$this->plugin_base($report);
-	}
-	
-	function summary(){
-		return '';
-	}
+    public $fullname = '';
+    public $type = '';
+    public $report = null;
+    public $form = false;
+    public $cache = array();
+    public $unique = false;
+    public $reporttypes = array();
+
+    public function __construct($report) {
+        global $DB, $CFG, $remotedb;
+
+        if (is_numeric($report)) {
+            $this->report = $DB->get_record('block_configurable_reports', array('id' => $report));
+        } else {
+            $this->report = $report;
+        }
+        $this->init();
+    }
+
+    public function summary($data) {
+        return '';
+    }
+
+    // Should be override.
+    public function init() {
+        return '';
+    }
+
 }
 
-?>
